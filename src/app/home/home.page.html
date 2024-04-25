@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Home</ion-title>
+      </ion-toolbar>
+  </ion-header>
+
+  <ion-button expand="block" (click)="selectImage('library')" color="success">
+    <ion-icon slot="start" name="image"></ion-icon>
+    Sélectionner une image
+  </ion-button>
+  <ion-button expand="block" (click)="selectImage('camera')"  color="success">
+    <ion-icon slot="start" name="camera"></ion-icon>
+    Prendre une photo
+  </ion-button>
+  <div class="flex">
+    <div class="img-box">
+      <img [src]="image">
+      <br>
+      <ion-progress-bar [value]="uploadProgress" color="tertiary"> </ion-progress-bar>
+    </div>
+  </div>
+  <ion-item>
+    <ion-label>
+      <p>utilisateur</p>
+      <h2><b>{{user}}</b></h2>
+    </ion-label>
+  </ion-item>
+
+  <ion-button expand="block" (click)="publish()" color="tertiary">
+    <ion-icon slot="start" name="camera" c></ion-icon>
+    Publier
+  </ion-button>
+
+  <div></div>
+</ion-content>

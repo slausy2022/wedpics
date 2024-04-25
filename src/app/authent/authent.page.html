@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>authent</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">authent</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-item>
+    <ion-label>E-mail</ion-label>
+    <ion-input type="email" [(ngModel)]=dataUser.email></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Mot de passe</ion-label>
+    <ion-input type="email" [(ngModel)]=dataUser.password></ion-input>
+  </ion-item>
+  <br>
+
+  <ion-button (click)=login() expand="block" >Connexion</ion-button>
+
+  <br>
+
+  <ion-button (click)=signUp() expand="block" colo="tertiary" >Inscription</ion-button>
+
+
+  <div *ngIf="connected" >
+    <h1>Vous êtes bien connectés</h1>
+    <ion-button (click)=logout() expand="block" color="danger" >Déconnexion</ion-button>
+  </div>
+
+</ion-content>
