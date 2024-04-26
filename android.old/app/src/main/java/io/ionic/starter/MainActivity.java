@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.slydev.wedpics;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -17,4 +17,4 @@ import { GalleriePageRoutingModule } from './gallerie-routing.module';
   ],
   declarations: [GalleriePage]
 })
-export class Tab2PageModule {}
+export class GalleriePageModule {}

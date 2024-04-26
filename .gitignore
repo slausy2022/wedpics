@@ -72,3 +72,6 @@ Thumbs.db
 
 # Ignore Gradle build output directory
 build
+
+resources/ios/**/*
+resources/android/**/*

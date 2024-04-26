@@ -29,9 +29,9 @@ export class UserGalleriePage implements OnDestroy {
   getImagesDatabase() {
     this.firestore.collection('Images/').snapshotChanges(['added','removed','modified'])
     .subscribe(images => {
-      if(images.length > 0){
+      //if(images.length > 0){
       this.images = []
-      }
+      //}
       images.forEach(image => {
         console.log("imagestorage")
         this.getImagesStorage(image);

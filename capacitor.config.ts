@@ -1,9 +1,9 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.slydev.wedpics',
   appName: 'wedPics',
-  webDir: 'www',
+  webDir: 'www/browser',
   cordova: {
     preferences: {
       ScrollEnabled: 'false',
