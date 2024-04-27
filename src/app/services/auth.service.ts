@@ -2,6 +2,7 @@ import { PasswordResetRequest } from './../../../node_modules/@firebase/auth/dis
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router'
+import { MessageService } from './message.service';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class AuthService {
   mail: any;
   method: any;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router){
+  constructor(private afAuth: AngularFireAuth, private router: Router, private message: MessageService){
 
     this.afAuth.authState.subscribe(auth => {
       if (!auth) {
@@ -30,28 +31,27 @@ export class AuthService {
   });}
 
   async login(email:string, password:string) : Promise<boolean | false>{
-    try {
-      await this.afAuth.signInWithEmailAndPassword(email, password);
-      this.router.navigate(['tabs']);
-      return true;
-    } catch (error) {
-      console.error('Login error:', error);
-      return false;
-      // Gérer les erreurs de connexion ici
-    }
+
+    let ret: boolean = true;
+    await this.afAuth.signInWithEmailAndPassword(email, password)
+    .then(auth => { this.router.navigate(['tabs']);  ret = true} )
+    .catch(err => { console.error('Login error:', err.message); this.message.erreurToast(err.code,2000); ret = false  })
+
+    return ret;
+
+
   }
 
   async signUp(email:string, password:string) : Promise<boolean | false>{
-    try{
-      await this.afAuth.createUserWithEmailAndPassword(email,password);
-      this.router.navigate(['tabs']);
-      return true;
 
-    } catch (error) {
-      console.error('Login error:', error);
-      return false;
-      // Gérer les erreurs de connexion ici
-    }
+    let ret: boolean = true;
+    await this.afAuth.createUserWithEmailAndPassword(email,password)
+    .then(auth => { this.router.navigate(['tabs']);  ret = true} )
+    .catch(err => { console.error('Login error:', err.message); this.message.erreurToast(err.code,2000); ret = false  })
+
+
+    return ret;
+
   }
 
   async logout(){
@@ -65,11 +65,27 @@ export class AuthService {
     }
   }
 
+  async ResetPassword(email: string){
+
+
+    await this.afAuth.sendPasswordResetEmail(email)
+      .then(send => {
+        this.message.okToast("Si votre mail existe, un lien de réinitialisation va vous être transmis",2000)
+      })
+      .catch(err =>  {
+        this.message.erreurToast(err.code,2000)
+      });
+  }
+
   status(){
     return this.connected;
   }
 
   getCurrentUser(){
     return this.mail;
+  }
+
+  codeToMessage(code: string){
+
   }
 }

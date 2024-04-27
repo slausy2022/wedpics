@@ -26,7 +26,8 @@
 
   <br>
 
-  <ion-button (click)=signUp() expand="block" colo="tertiary" >Inscription</ion-button>
+  <ion-button (click)=signUp() expand="block" colo="tertiary" [disabled]="false" >Inscription</ion-button>
+  <ion-button (click)=resetPassword() expand="block" colo="tertiary" [disabled]="false" >Réinitialiser mon mot de passe</ion-button>
 
 
   <div *ngIf="connected" >
