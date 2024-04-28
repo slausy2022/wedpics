@@ -61,7 +61,8 @@
                 }
               ],
               "outputHashing": "all",
-              "serviceWorker": "ngsw-config.json"
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             },
             "development": {
               "optimization": false,
@@ -85,7 +86,7 @@
               "buildTarget": "app:build:development"
             },
             "ci": {
-              "progress": false
+
             }
           },
           "defaultConfiguration": "development"

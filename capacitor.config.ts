@@ -3,7 +3,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.slydev.wedpics',
   appName: 'wedPics',
-  webDir: 'www/browser',
+  webDir: 'www',
   cordova: {
     preferences: {
       ScrollEnabled: 'false',

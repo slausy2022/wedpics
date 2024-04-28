@@ -23,6 +23,10 @@ const routes: Routes = [
         loadChildren: () => import('../usergallerie/usergallerie.module').then(m => m.UserGalleriePageModule)
       },
       {
+        path: 'profil',
+        loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'

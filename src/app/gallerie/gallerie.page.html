@@ -1,19 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Gallerie
+      <img src="../../assets/images/instagram-new-logo.png">
     </ion-title>
+    <div class="flex"><app-stories></app-stories></div>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Gallerie</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <ion-card *ngFor="let image of images">
+
+  <hr>
+  <ion-card *ngFor="let image of images$ | async ">
     <ion-img src="{{image.url}}"></ion-img>
+    <ion-textarea disabled="true">{{image.description}}</ion-textarea>
   </ion-card>
 </ion-content>

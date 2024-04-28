@@ -6,6 +6,7 @@ import { GalleriePage } from './gallerie.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { GalleriePageRoutingModule } from './gallerie-routing.module';
+import { StoriesComponent } from '../stories/stories.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { GalleriePageRoutingModule } from './gallerie-routing.module';
     ExploreContainerComponentModule,
     GalleriePageRoutingModule
   ],
-  declarations: [GalleriePage]
+  declarations: [GalleriePage,StoriesComponent]
 })
 export class GalleriePageModule {}

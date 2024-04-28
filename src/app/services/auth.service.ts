@@ -49,7 +49,6 @@ export class AuthService {
     .then(auth => { this.router.navigate(['tabs']);  ret = true} )
     .catch(err => { console.error('Login error:', err.message); this.message.erreurToast(err.code,2000); ret = false  })
 
-
     return ret;
 
   }

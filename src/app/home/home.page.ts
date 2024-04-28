@@ -7,6 +7,7 @@ import { AuthService } from './../services/auth.service';
 import { ToastController } from '@ionic/angular';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Photo } from '@capacitor/camera';
+import { ImagePublishService } from '../services/image-publish.service';
 
 
 @Component({
@@ -21,13 +22,15 @@ export class HomePage {
   description = "";
   user: any;
   uploadProgress: number;
+  toPublished: boolean = false;
 
   constructor(
     private imageSelectionService: ImageSelectionService,
     private auth : AuthService,
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private publishService: ImagePublishService
   ) {
     this.user = auth.getCurrentUser();
   }
@@ -37,55 +40,23 @@ export class HomePage {
     if (source === 'camera') {
       console.log('camera');
       const cameraPhoto = await this.imageSelectionService.takePhoto();
-      //this.image = 'data:image/jpeg;base64,' + cameraPhoto!;
       this.imageInfos = cameraPhoto!;
       this.image = this.imageInfos.dataUrl!;
+      this.toPublished = true;
     } else {
       console.log('library');
       const libraryImage = await this.imageSelectionService.selectImageFromGallery();
-      //this.image = 'data:image/jpeg;base64,' + libraryImage!;
       this.imageInfos = libraryImage!;
       this.image = this.imageInfos.dataUrl!;
+      this.toPublished = true;
     }
-
   }
 
   async publish(){
 
-  /*    const fieContent = await Filesystem.readFile({
-        path: this.image,
-        directory: Directory.Documents,
-        encoding: Encoding.UTF8
-      })
-*/
-
-
-      const randomId = Math.random().toString(36).substring(2,8);
-      const fileId = `Images/${new Date().getTime()}_${randomId}`;
-      const blob = this.dataUrltoBlob(this.imageInfos.dataUrl )
-      const uploadTask = this.storage.upload(fileId, blob);
-
-      uploadTask.percentageChanges().subscribe(changes => {
-        this.uploadProgress = changes!;
-      })
-
-      uploadTask.then(async res => {
-        this.firestore.collection('Images').add({
-          storageid: fileId,
-          description: this.description,
-          email: this.user
-        });
-      });
+    this.toPublished = await this.publishService.publish(this.user,this.description,this.imageInfos);
 
   }
 
-  dataUrltoBlob(dataurl: any){
-    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-    while(n--){
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new Blob([u8arr], {type:mime})
-  }
 
 }
