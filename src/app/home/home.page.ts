@@ -1,5 +1,7 @@
+import { UserService} from './../services/user.service';
+import { User } from '../interfaces/users.interface';
 import { getTestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ImageSelectionService } from './../services/image-selection.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -8,6 +10,7 @@ import { ToastController } from '@ionic/angular';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Photo } from '@capacitor/camera';
 import { ImagePublishService } from '../services/image-publish.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -15,12 +18,13 @@ import { ImagePublishService } from '../services/image-publish.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   image = 'https://www.kasterencultuur.nl/editor/placeholder.jpg';
   imageInfos: Photo;
   description = "";
   user: any;
+  user$: Observable<User[]>;
   uploadProgress: number;
   toPublished: boolean = false;
 
@@ -30,9 +34,10 @@ export class HomePage {
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
     private toastCtrl: ToastController,
-    private publishService: ImagePublishService
+    private publishService: ImagePublishService,
+    private userService: UserService
   ) {
-    this.user = auth.getCurrentUser();
+
   }
 
   async selectImage(source: string) {
@@ -58,5 +63,11 @@ export class HomePage {
 
   }
 
+  ngOnInit(): void {
+      this.user =this.auth.getCurrentUser();
+      this.user$ = this.userService.getUserByMail(this.auth.getCurrentUser())
+
+
+  }
 
 }

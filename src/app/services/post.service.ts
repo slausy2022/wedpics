@@ -17,7 +17,7 @@ export class PostService {
 
 
 getAllPosts(): Observable<Post[]> {
-  return this.firestore.collection<Post>('Images/')
+  return this.firestore.collection<Post>('Images/', ref => ref.orderBy('date', 'desc'))
     .valueChanges().pipe(
       switchMap( objects => {
         const postWithUrls$ = objects.map(object => {
@@ -30,7 +30,7 @@ getAllPosts(): Observable<Post[]> {
 )}
 
 getPosts(email): Observable<Post[]> {
-  return this.firestore.collection<Post>('Images/',  ref => ref.where('email', '==', email))
+  return this.firestore.collection<Post>('Images/',  ref => ref.where('email', '==', email).orderBy('date', 'desc'))
     .valueChanges().pipe(
       switchMap( objects => {
         const postWithUrls$ = objects.map(object => {
@@ -41,6 +41,17 @@ getPosts(email): Observable<Post[]> {
       return combineLatest(postWithUrls$);
     })
 )}
+
+getNumberOfPosts(email): Observable<number> {
+
+  return this.firestore.collection<Post>('Images/',  ref => ref.where('email', '==', email))
+    .valueChanges().pipe(
+      map( objects =>{
+        return objects.length
+      })
+    );
+
+}
 
 getUrl(imgId: string): Observable<string>{
 

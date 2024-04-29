@@ -23,7 +23,7 @@ const routes: Routes = [
         loadChildren: () => import('../usergallerie/usergallerie.module').then(m => m.UserGalleriePageModule)
       },
       {
-        path: 'profil',
+        path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {

@@ -7,15 +7,17 @@
       <ion-button color="dark" (click)="selectImage('library')">
         <ion-icon slot="icon-only" name="images"></ion-icon>
       </ion-button>
-    </ion-buttons>
-    <ion-title>
-      <img src="../../assets/images/instagram-new-logo.png">
-    </ion-title>
-    <ion-buttons slot="end">
-      <ion-button slot="start" color="dark" (click)="publish()" [disabled]="!toPublished">
+      <ion-button color="dark" (click)="publish()" [disabled]="!toPublished">
         <ion-icon slot="icon-only" name="send" ></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-item>
+      <img src="../../assets/images/ewings-logo-black.png">
+    </ion-item>
+    <ion-avatar slot="end" >
+      <ion-img name="avatar" [src]="(user$ | async)?.[0]?.url" ></ion-img>
+    </ion-avatar>
+
   </ion-toolbar>
 </ion-header>
 

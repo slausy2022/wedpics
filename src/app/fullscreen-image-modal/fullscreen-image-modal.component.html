@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Full Screen Image</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="fullscreen-image-container">
+    <div class="image-wrapper">
+      <ion-img [src]="imageUrl" alt="Image"></ion-img>
+    </div>
+    <ion-textarea class="text" [label]="imageDate" [readonly]="true">{{imageDescription}}</ion-textarea>
+  </div>
+</ion-content>

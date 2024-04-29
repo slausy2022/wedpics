@@ -1,4 +1,23 @@
-ion-header img {
-  height: 47px;
-  margin-top: 4px;
+h1 {
+  font-size: 30px;
+}
+
+.info_box {
+  display: flex;
+}
+
+.data_box {
+  margin: 4px 36px 7px 15px;
+  text-align: center;
+}
+
+.data_box b{
+  font-size: 20px;
+}
+
+.data_box p{
+  margin: 2px;
+  font-size: 12px;
+  color: grey;
+  font-weight: 500;
 }

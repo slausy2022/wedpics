@@ -1,15 +1,39 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      <img src="../../assets/images/instagram-new-logo.png">
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <br>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-item lines="none">
+  <ion-label>
+    <h1><b>{{(user$ | async)?.[0]?.pseudo}}</b></h1>
+  </ion-label>
+  <ion-avatar>
+    <img [src]="(user$ | async)?.[0]?.url">
+  </ion-avatar>
+</ion-item>
+
+<div class="info_box">
+  <div class="data_box">
+    <b>{{(numberOfPosts$ | async)}}</b>
+    <p>posts</p>
+  </div>
+  <div class="data_box" hidden="true">
+    <b>7850</b>
+    <p>followers</p>
+  </div>
+  <div class="data_box" hidden="true">
+    <b>715</b>
+    <p>following</p>
+  </div>
+</div>
+
+<hr>
+
+<div class="profile_box">
+  <ion-textarea class=""></ion-textarea>
+
+</div>
+
+
 </ion-content>
+
+
+

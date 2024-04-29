@@ -1,19 +1,35 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-item>
     <ion-title>
-      <img src="../../assets/images/instagram-new-logo.png">
+      <img src="../../assets/images/ewings-logo-black.png">
     </ion-title>
+    <ion-avatar slot="end" >
+      <ion-img name="avatar" [src]="(user$ | async)?.[0]?.url" ></ion-img>
+    </ion-avatar>
+  </ion-item>
     <div class="flex"><app-stories></app-stories></div>
   </ion-toolbar>
+  <ion-segment color="medium" [(ngModel)]="postSegment">
+    <ion-segment-button value='grid'>
+      <ion-icon name="keypad"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value='list'>
+      <ion-icon name="list"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
 
 </ion-header>
 
-<ion-content [fullscreen]="true">
-
-
+<ion-content [fullscreen]="true" [ngSwitch]="postSegment">
   <hr>
-  <ion-card *ngFor="let image of images$ | async ">
-    <ion-img src="{{image.url}}"></ion-img>
-    <ion-textarea disabled="true">{{image.description}}</ion-textarea>
-  </ion-card>
+  <div *ngSwitchCase="'grid'" class="grid">
+    <div *ngFor="let image of images$ | async " (click)="openFullscreenImage(image.url, formatDate(image.date),image.description)" class="img_box" [ngStyle]="{ 'background-image': 'url(' + image.url + ')'}" ></div>
+  </div>
+  <div *ngSwitchCase="'list'">
+    <ion-card *ngFor="let image of images$ | async ">
+      <ion-img src="{{image.url}}" (click)="openFullscreenImage(image.url,formatDate(image.date),image.description)"></ion-img>
+      <ion-textarea [label]="formatDate(image.date)" [readonly]="true">{{image.description}}</ion-textarea>
+    </ion-card>
+  </div>
 </ion-content>

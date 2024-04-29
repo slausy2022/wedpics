@@ -4,7 +4,7 @@ import { AngularFirestore  } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { collectionGroup, query, where, getDocs } from "firebase/firestore";
 import { Observable, combineLatest } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take , first} from 'rxjs/operators';
 import { equal } from 'assert';
 
 @Injectable({
@@ -43,6 +43,20 @@ export class UserService {
           });
         return combineLatest(userWithUrls$);
       })
+  )}
+
+  getUserByMail(email): Observable<User[]>{
+    return this.firestore.collection<User>('users/', ref => ref.where('email', '==', email))
+      .valueChanges().pipe(
+        switchMap( objects => {
+            const userWithUrls$ = objects.map(object => {
+              return this.getUrl(object.avatar_id).pipe(
+                map(url => ({ ...object, url: url }))
+              );
+            });
+          return combineLatest(userWithUrls$);
+      }),
+      first()
   )}
 
   getAllUsers(): Observable<User[]> {

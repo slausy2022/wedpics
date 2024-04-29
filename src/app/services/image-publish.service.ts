@@ -26,7 +26,8 @@ export class ImagePublishService {
         this.firestore.collection('Images').add({
           storageid: fileId,
           description: description,
-          email: user
+          email: user,
+          date: new Date().toISOString()
         })
         .then( res => {
           this.message.okToast("Image publiée",2000);

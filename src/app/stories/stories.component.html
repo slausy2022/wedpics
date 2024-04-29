@@ -6,9 +6,9 @@
     <p style="color: #86888f;">Tous les posts</p>
   </div>
     <div *ngFor="let storie of stories$ | async"  class="story" >
-      <div class="img-box">
+      <ion-avatar >
         <ion-img [src]="storie.url" (click)=afficheUserGallerie(storie.email)></ion-img>
-      </div>
+      </ion-avatar>
       <p >{{storie.pseudo}}</p>
     </div>
 </ion-card>
