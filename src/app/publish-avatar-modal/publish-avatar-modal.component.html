@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Avatar</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="post-image-container">
+
+    <div class="image-wrapper">
+      <ion-avatar slot="end" >
+        <ion-img name="avatar" [src]="imageInfos.dataUrl" ></ion-img>
+      </ion-avatar>
+
+      <div class="publish">
+        <ion-button slot="end" color="light" (click)="publish()" [disabled]="!toPublished">Publier
+          <ion-icon size="large" name="send" ></ion-icon>
+        </ion-button>
+      </div>
+
+    </div>
+  </div>
+</ion-content>
+

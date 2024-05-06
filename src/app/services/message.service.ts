@@ -13,7 +13,7 @@ export class MessageService {
     let errorToast = await this.toastCtrl.create({
       message: message,
       duration: duration,
-      position: 'middle',
+      position: 'bottom',
       color: 'danger'
     });
 
@@ -25,7 +25,7 @@ export class MessageService {
     let okToast = await this.toastCtrl.create({
       message: message,
       duration: duration,
-      position: 'middle',
+      position: 'bottom',
       color: 'success'
 
     });

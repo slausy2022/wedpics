@@ -21,3 +21,16 @@ h1 {
   color: grey;
   font-weight: 500;
 }
+
+.usrgrid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.usrimg_box {
+  border: 1px solid white;
+  width: 33.3%;
+  padding-bottom: 31%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

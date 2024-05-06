@@ -1,14 +1,14 @@
 <ion-card class="stories">
   <div class="story">
     <div class="add_story">
-      <ion-img src="../../assets/insta-assets/instagram-bg-color.jpg" (click)=afficheAllGalleries()></ion-img>
+      <ion-img src="../../assets/images/avatar-tous.png" (click)=afficheAllGalleries()></ion-img>
     </div>
-    <p style="color: #86888f;">Tous les posts</p>
+    <p style="color: light">Tous les posts</p>
   </div>
-    <div *ngFor="let storie of stories$ | async"  class="story" >
+    <div *ngFor="let storie of storiesWithAvatarUrl$ | async"  class="story" >
       <ion-avatar >
-        <ion-img [src]="storie.url" (click)=afficheUserGallerie(storie.email)></ion-img>
+        <ion-img [src]="storie.avatarUrl" (click)=afficheUserGallerie(storie.story.email) alt="avatar"></ion-img>
       </ion-avatar>
-      <p >{{storie.pseudo}}</p>
+      <p >{{storie.story.pseudo}}</p>
     </div>
 </ion-card>

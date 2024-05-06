@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Post } from '../interfaces/posts.interface';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Post, PostWithoutId } from '../interfaces/posts.interface';
+import { AngularFirestore} from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, combineLatest } from 'rxjs';
-import { AngularFireList } from '@angular/fire/compat/database';
 import { map, switchMap } from 'rxjs/operators';
+import { LikesService } from './likes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,34 +13,47 @@ export class PostService {
 
   constructor(
     private firestore: AngularFirestore,
-    private storage: AngularFireStorage) { }
+    private storage: AngularFireStorage,
+    private likesService: LikesService) { }
 
+getAllPosts(): Observable<Post[]>{
 
-getAllPosts(): Observable<Post[]> {
-  return this.firestore.collection<Post>('Images/', ref => ref.orderBy('date', 'desc'))
-    .valueChanges().pipe(
-      switchMap( objects => {
-        const postWithUrls$ = objects.map(object => {
-          return this.getUrl(object.storageid).pipe(
-            map(url => ({ ...object, url: url }))
-          );
-        });
-      return combineLatest(postWithUrls$);
-    })
+  console.log("getAllPosts")
+
+  return this.firestore.collection<PostWithoutId>('Images/',  ref => ref.orderBy('date', 'desc'))
+  .snapshotChanges().pipe(
+    switchMap(actions => {
+    const postWithUrls$ = actions.map(action => {
+      const data = action.payload.doc.data() as PostWithoutId;
+      const id = action.payload.doc.id;
+      const nbLikes = this.likesService.getNumberOfPostLikes(id)
+      return this.getUrl(data.storageid).pipe(
+        map(url => ({ ...data, url, id, nbLikes }))
+      );
+    });
+    return combineLatest(postWithUrls$);
+  })
 )}
 
-getPosts(email): Observable<Post[]> {
-  return this.firestore.collection<Post>('Images/',  ref => ref.where('email', '==', email).orderBy('date', 'desc'))
-    .valueChanges().pipe(
-      switchMap( objects => {
-        const postWithUrls$ = objects.map(object => {
-          return this.getUrl(object.storageid).pipe(
-            map(url => ({ ...object, url: url }))
-          );
-        });
-      return combineLatest(postWithUrls$);
+getPosts(email): Observable<Post[]>{
+
+  console.log('getPosts email : '+email)
+
+  return this.firestore.collection<PostWithoutId>('Images/',  ref => ref.where('email', '==', email).orderBy('date', 'desc'))
+  .snapshotChanges().pipe(
+    switchMap(actions => {
+      const postWithUrls$ = actions.map(action => {
+        const data = action.payload.doc.data() as PostWithoutId;
+        const id = action.payload.doc.id;
+        const nbLikes = this.likesService.getNumberOfPostLikes(id)
+        return this.getUrl(data.storageid).pipe(
+         map(url => ({ ...data, url, id, nbLikes }))
+        )
+      });
+      return combineLatest(postWithUrls$)
     })
-)}
+  )
+}
 
 getNumberOfPosts(email): Observable<number> {
 
@@ -50,7 +63,6 @@ getNumberOfPosts(email): Observable<number> {
         return objects.length
       })
     );
-
 }
 
 getUrl(imgId: string): Observable<string>{

@@ -1,12 +1,15 @@
+
 <ion-content>
-  <br>
+
+
+<br>
 
 <ion-item lines="none">
   <ion-label>
     <h1><b>{{(user$ | async)?.[0]?.pseudo}}</b></h1>
   </ion-label>
   <ion-avatar>
-    <img [src]="(user$ | async)?.[0]?.url">
+    <img [src]="(avatarUrl$ | async)" (click)="CreatePopover($event)">
   </ion-avatar>
 </ion-item>
 
@@ -15,9 +18,9 @@
     <b>{{(numberOfPosts$ | async)}}</b>
     <p>posts</p>
   </div>
-  <div class="data_box" hidden="true">
-    <b>7850</b>
-    <p>followers</p>
+  <div class="data_box">
+    <b>{{numberOfLikes$ | async}}</b>
+    <p>likes</p>
   </div>
   <div class="data_box" hidden="true">
     <b>715</b>
@@ -28,11 +31,40 @@
 <hr>
 
 <div class="profile_box">
-  <ion-textarea class=""></ion-textarea>
-
 </div>
 
+<ion-segment color="medium" [(ngModel)]="profileSegment">
+  <ion-segment-button value='usrgrid'>
+    <ion-icon name="keypad"></ion-icon>
+  </ion-segment-button>
+  <ion-segment-button value='profil'>
+    <ion-icon name="person"></ion-icon>
+  </ion-segment-button>
+</ion-segment>
 
+<hr>
+<div [ngSwitch]="profileSegment" >
+  <div *ngSwitchCase="'usrgrid'" class="usrgrid">
+    <div *ngFor="let image of images$ | async "  class="usrimg_box" [ngStyle]="{ 'background-image': 'url(' + image.url + ')'}" (ion-error)="handleImageError($event)"></div>
+  </div>
+  <div *ngSwitchCase="'profil'">
+    <ion-item>
+      <ion-input label="Pseudo" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.pseudo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Nom" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.nom"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Prenom" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.prenom"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea label="Description" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Email" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.email"></ion-input>
+    </ion-item>
+  </div>
+</div>
 </ion-content>
 
 

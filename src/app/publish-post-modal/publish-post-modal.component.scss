@@ -1,4 +1,4 @@
-.fullscreen-image-container {
+.post-image-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,13 +31,13 @@ ion-img {
 .text {
   position: absolute;
   bottom: 10px; /* Distance depuis le bas */
-  left: 10px; /* Distance depuis la gauche */
+  left: 1px; /* Distance depuis la gauche */
   color: white;
   font-size: 16px;
   z-index: 1; /* Assure que le texte est au-dessus de l'image */
 }
 
-ion-item {
+ion-textarea {
   //border-style: solid;
   border-radius: 15px;
   background-color: white !important;
@@ -45,4 +45,12 @@ ion-item {
   padding: 5px;
 
   //border-color: white;
+}
+
+.publish {
+  background-color: black;
+}
+
+.description {
+  background-color: white;
 }

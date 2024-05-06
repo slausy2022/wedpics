@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Publication</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="post-image-container">
+
+    <div class="image-wrapper">
+      <ion-img [src]="imageInfos.dataUrl" alt="Image"></ion-img>
+
+      <div class="publish">
+        <ion-button slot="end" color="white" (click)="publish()" [disabled]="!toPublished">Publier
+          <ion-icon size="large" name="send" ></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="description">
+        <ion-textarea label="Description : " class="text" color="white" fill="outline" [readonly]="false" [(ngModel)]="imageDescription"></ion-textarea>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

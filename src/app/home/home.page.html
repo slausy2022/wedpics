@@ -15,7 +15,7 @@
       <img src="../../assets/images/ewings-logo-black.png">
     </ion-item>
     <ion-avatar slot="end" >
-      <ion-img name="avatar" [src]="(user$ | async)?.[0]?.url" ></ion-img>
+      <ion-img name="avatar" [src]="(avatarUrl$ | async)" ></ion-img>
     </ion-avatar>
 
   </ion-toolbar>
@@ -38,9 +38,10 @@
   <ion-item>
     <ion-label>
       <p>utilisateur</p>
-      <h2><b>{{user}}</b></h2>
+      <h2><b>{{currentUser}}</b></h2>
     </ion-label>
   </ion-item>
 
   <div></div>
 </ion-content>
+

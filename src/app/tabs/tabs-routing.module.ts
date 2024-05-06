@@ -10,10 +10,10 @@ const routes: Routes = [
     component: TabsPage,
     canActivate: [AuthGuard],
     children: [
-      {
+      /*{
         path: 'home',
         loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
-      },
+      },*/
       {
         path: 'gallerie',
         loadChildren: () => import('../gallerie/gallerie.module').then(m => m.GalleriePageModule)
@@ -28,7 +28,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'gallerie',
         pathMatch: 'full'
       }
     ]

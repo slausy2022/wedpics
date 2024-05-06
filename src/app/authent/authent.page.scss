@@ -1,0 +1,44 @@
+.gradient {
+  --ion-background-color: linear-gradient(#000000, #2f2e2e);
+  color: white;
+}
+
+.logo {
+  position: relative;
+  height: 250px;
+}
+
+
+ion-input {
+  font-size: smaller;
+  padding: 10px;
+  background-color: #e1d7d7;
+  border-style:solid;
+}
+
+.login-input {
+  padding: 10px;
+}
+
+.login-input ion-button {
+  font-size: small;
+  margin-left: 30%;
+}
+
+.ion-item::after {
+  background-color: rgba(0, 0, 0, 0) !important;
+  background: none !important;
+}
+
+.item-native::after {
+  background-color: rgba(0, 0, 0, 0) !important;
+  background: none !important;
+}
+
+.log ion-img {
+  font-size: 9em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

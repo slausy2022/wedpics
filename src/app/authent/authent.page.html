@@ -1,38 +1,24 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>authent</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="gradient">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">authent</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-item>
-    <ion-label>E-mail</ion-label>
-    <ion-input type="email" [(ngModel)]=dataUser.email></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Mot de passe</ion-label>
-    <ion-input type="email" [(ngModel)]=dataUser.password></ion-input>
-  </ion-item>
-  <br>
-
-  <ion-button (click)=login() expand="block" >Connexion</ion-button>
-
-  <br>
-
-  <ion-button (click)=signUp() expand="block" colo="tertiary" [disabled]="false" >Inscription</ion-button>
-  <ion-button (click)=resetPassword() expand="block" colo="tertiary" [disabled]="false" >Réinitialiser mon mot de passe</ion-button>
-
-
-  <div *ngIf="connected" >
-    <h1>Vous êtes bien connectés</h1>
-    <ion-button (click)=logout() expand="block" color="danger" >Déconnexion</ion-button>
+  <div class="logo">
+      <ion-img src="../../assets/images/ewings-logo.png"></ion-img>
   </div>
+
+  <div class="login-input">
+    <ion-input label="E-Mail" labelPlacement="fixed" color="light" type="email" placeholder="adresse@mail" [(ngModel)]=dataUser.email></ion-input>
+    <ion-input label="Mot de Passe" labelPlacement="fixed" color="light" type="password" placeholder="mot de passe" [(ngModel)]=dataUser.password></ion-input>
+    <ion-button color="light" slot="end" fill="clear" (click)=resetPassword()>Mot de passe oublié ?</ion-button>
+  </div>
+
+  <br>
+
+  <ion-button (click)=login() expand="block" color="light" shape="round" fill="outline" >Connexion</ion-button>
+
+  <br>
+
+  <ion-button (click)=signUp() expand="block" color="light" [disabled]="false" shape="round">Inscription</ion-button>
+
+
+
 
 </ion-content>
