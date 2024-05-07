@@ -11,12 +11,13 @@ import { Subscription, of } from 'rxjs';
 import { Photo } from '@capacitor/camera';
 import { AuthService } from './../services/auth.service';
 import { DatePipe } from '@angular/common';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { FullscreenImageModalComponent } from '../fullscreen-image-modal/fullscreen-image-modal.component';
 import { PublishPostModalComponent } from '../publish-post-modal/publish-post-modal.component';
 import { ImageSelectionService } from './../services/image-selection.service';
 import { LikesIconPipe,LikesIconColorPipe } from './gallerie.pipe';
 import { AvatarsService } from '../services/avatars.service';
+import { AvatarpopComponent } from '../avatarpop/avatarpop.component';
 
 
 @Component({
@@ -52,7 +53,8 @@ export class GalleriePage implements OnInit {
     private datePipe: DatePipe,
     private modalController: ModalController,
     private avatarService: AvatarsService,
-    private imageSelectionService: ImageSelectionService
+    private imageSelectionService: ImageSelectionService,
+    private popoverController: PopoverController
 
   ) {}
 
@@ -136,5 +138,18 @@ export class GalleriePage implements OnInit {
   async processLike(postId: string){
     let myUser: string = this.auth.getCurrentUser();
     this.likesService.processLike(postId,myUser)
+  }
+
+  async CreatePopover(ev: any) {
+    const pop = await this.popoverController.create({
+    component: AvatarpopComponent,
+    cssClass: 'my-custom-class',
+    event: ev,
+    translucent: true,
+    componentProps: {
+    "user": this.auth.getCurrentUser(),
+    }
+    });
+    return await pop.present();
   }
 }

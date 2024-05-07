@@ -5,6 +5,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, combineLatest } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { LikesService } from './likes.service';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class PostService {
   constructor(
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
+    private message: MessageService,
     private likesService: LikesService) { }
 
 getAllPosts(): Observable<Post[]>{
@@ -70,4 +72,42 @@ getUrl(imgId: string): Observable<string>{
   return this.storage.ref(imgId).getDownloadURL()
 }
 
+async delete(post: Post): Promise<void>{
+
+    if (post === undefined){
+      this.message.erreurToast("Erreur de suppression du post :  Valeur de post non définie", 2000)
+      return
+    }
+    if (post.id === undefined){
+      this.message.erreurToast("Erreur de suppression du post :  Reference de post non définie", 2000)
+      return
+    }
+
+    try{
+      console.log("suppression du post : "+ post.id)
+      await this.firestore.collection("Images").doc(post.id).delete()
+
+    }catch{
+      this.message.erreurToast("Erreur de suppression du post", 2000)
+      return
+    }
+
+    if (post.storageid === undefined){
+      this.message.erreurToast("Erreur de suppression de l'image :  l'image n'existe pas mais le post a été supprimé", 2000)
+      return
+    }
+
+    try{
+      console.log("suppression de l'image : "+ post.storageid)
+      await this.storage.ref(post.storageid).delete()
+      this.message.okToast("Post supprimé !", 2000)
+
+    }catch{
+      this.message.erreurToast("Erreur de suppression de l'image", 2000)
+      return
+
+    }
+
+    return
+}
 }

@@ -9,6 +9,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import { AvatarpopComponent } from '../avatarpop/avatarpop.component';
 import { PublishAvatarModalComponent } from '../publish-avatar-modal/publish-avatar-modal.component';
+import { DeleteImageModalComponent } from '../delete-image-modal/delete-image-modal.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { PublishAvatarModalComponent } from '../publish-avatar-modal/publish-ava
     IonicModule,
     ProfilePageRoutingModule
   ],
-  declarations: [ProfilePage, AvatarpopComponent, PublishAvatarModalComponent],
+  declarations: [ProfilePage, AvatarpopComponent, PublishAvatarModalComponent, DeleteImageModalComponent],
   providers: [AvatarpopComponent],
 })
 export class ProfilePageModule {}

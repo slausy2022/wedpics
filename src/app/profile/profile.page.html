@@ -45,7 +45,7 @@
 <hr>
 <div [ngSwitch]="profileSegment" >
   <div *ngSwitchCase="'usrgrid'" class="usrgrid">
-    <div *ngFor="let image of images$ | async "  class="usrimg_box" [ngStyle]="{ 'background-image': 'url(' + image.url + ')'}" (ion-error)="handleImageError($event)"></div>
+    <div *ngFor="let image of images$ | async "  class="usrimg_box" [ngStyle]="{ 'background-image': 'url(' + image.url + ')'}" (ion-error)="handleImageError($event)" (click)="openModalDeletePost(image)"></div>
   </div>
   <div *ngSwitchCase="'profil'">
     <ion-item>
@@ -58,11 +58,15 @@
       <ion-input label="Prenom" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.prenom"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-textarea label="Description" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.description"></ion-textarea>
+      <ion-textarea name="descr" (ionChange)="enableButton()" label="Description" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.description"></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-input label="Email" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.email"></ion-input>
     </ion-item>
+    <div class="flex">
+      <ion-button [disabled]="buttonDisabled" color="success" (click)="validate()">Valider</ion-button>
+      <ion-button [disabled]="buttonDisabled" color="danger" (click)="cancel()">Annuler</ion-button>
+    </div>
   </div>
 </div>
 </ion-content>

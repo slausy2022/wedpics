@@ -12,7 +12,7 @@
       <img src="../../assets/images/ewings-logo-black.png">
     </ion-item>
     <ion-avatar slot="end" >
-      <ion-img name="avatar" [src]="(avatarUrl$ | async)" alt="AVATAR"></ion-img>
+      <ion-img name="avatar" [src]="(avatarUrl$ | async)" alt="AVATAR" (click)="CreatePopover($event)"></ion-img>
     </ion-avatar>
   </ion-toolbar>
 <app-stories></app-stories>

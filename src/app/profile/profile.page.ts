@@ -1,3 +1,4 @@
+import { DeleteImageModalComponent } from './../delete-image-modal/delete-image-modal.component';
 import { AvatarsService } from './../services/avatars.service';
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -7,7 +8,7 @@ import { PostService} from './../services/post.service';
 import { LikesService} from './../services/likes.service';
 import { Post } from '../interfaces/posts.interface';
 import { AuthService } from './../services/auth.service';
-import { PopoverController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { AvatarpopComponent } from "../avatarpop/avatarpop.component";
 
 @Component({
@@ -23,6 +24,7 @@ export class ProfilePage implements OnInit {
   numberOfPosts$: Observable<number>;
   numberOfLikes$: Observable<number>;
   profileSegment: string = 'usrgrid';
+  buttonDisabled: boolean = true;
 
   firestoreSubscription: Subscription | undefined;
 
@@ -32,12 +34,14 @@ export class ProfilePage implements OnInit {
     private postService: PostService,
     private likesService: LikesService,
     private popoverController: PopoverController,
+    private modalController: ModalController,
     private avatarsService: AvatarsService
   ) { }
 
   ngOnInit() {
     this.currentUser =this.auth.getCurrentUser();
     this.user$ = this.userService.getUserByMail(this.currentUser)
+
     this.avatarUrl$ = this.avatarsService.getAvatarUrl(this.currentUser)
 
     this.numberOfPosts$ = this.postService.getNumberOfPosts(this.currentUser)
@@ -54,6 +58,10 @@ export class ProfilePage implements OnInit {
     console.error('Erreur de chargement de l\'image:', event);
   }
 
+  enableButton(){
+    this.buttonDisabled = false;
+  }
+
   async CreatePopover(ev: any) {
     const pop = await this.popoverController.create({
     component: AvatarpopComponent,
@@ -65,5 +73,27 @@ export class ProfilePage implements OnInit {
     }
     });
     return await pop.present();
-    }
+  }
+
+  async openModalDeletePost(post: Post ) {
+    const modal = await this.modalController.create({
+      component: DeleteImageModalComponent,
+      componentProps: {
+        post : post
+      },
+    });
+    console.log("ouverture de la fenetre de suppression")
+    return await modal.present();
+
+  }
+
+  validate(){
+    //enregistrer l'objet dans la base ( user service update avec le user actuel )
+  }
+
+  cancel(){
+    this.user$ = this.userService.getUserByMail(this.currentUser);
+    this.buttonDisabled = true;
+
+  }
 }
