@@ -17,10 +17,11 @@ export class GalleriePipe implements PipeTransform {
 })
 export class LikesIconPipe implements PipeTransform {
     transform(value: number | null | undefined): string {
+      console.log(value)
       if (value && value > 0) {
         return 'heart';
       } else {
-        return 'heart-empty';
+        return 'heart-outline';
       }
     }
 }

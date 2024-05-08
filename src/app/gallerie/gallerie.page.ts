@@ -137,7 +137,7 @@ export class GalleriePage implements OnInit {
 
   async processLike(postId: string){
     let myUser: string = this.auth.getCurrentUser();
-    this.likesService.processLike(postId,myUser)
+    await this.likesService.processLike(postId,myUser)
   }
 
   async CreatePopover(ev: any) {

@@ -17,8 +17,8 @@
       <div class="like">
         <ion-toolbar class="flex">
           <ion-buttons slot="start">
-            <ion-button [color]="(image.nbLikes | async | LikesIconColorPipe)" (click)="processLike(image.id)">
-              <ion-icon  [name]="(image.nbLikes | async | LikesIconPipe)"></ion-icon>{{image.nbLikes | async }}
+            <ion-button [color]="(nbLikes$ | async | LikesIconColorPipe)" (click)="processLike(image.id)">
+              <ion-icon  [name]="(nbLikes$ | async | LikesIconPipe)"></ion-icon>{{image.nbLikes | async }}
             </ion-button>
           </ion-buttons>
         </ion-toolbar>

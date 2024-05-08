@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
 import { AuthService } from './../services/auth.service';
 import { LikesService } from './../services/likes.service';
 import { Post } from '../interfaces/posts.interface';
-import { LikesIconPipe,LikesIconColorPipe } from '../gallerie/gallerie.pipe';
+import { Observable } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-fullscreen-image-modal',
   templateUrl: './fullscreen-image-modal.component.html',
   styleUrls: ['./fullscreen-image-modal.component.scss'],
 })
-export class FullscreenImageModalComponent implements OnInit {
+
+export class FullscreenImageModalComponent implements OnInit{
   imageUrl: string;
   imageDescription : string;
   imageDate: string;
   image: Post;
+  nbLikes$: Observable<number>;
 
   constructor(private navParams: NavParams,
     private modalController: ModalController,
@@ -22,11 +26,13 @@ export class FullscreenImageModalComponent implements OnInit {
     private likesService: LikesService
   ) {}
 
+
   ngOnInit() {
     //this.imageUrl = this.navParams.get('imageUrl');
     //this.imageDescription = this.navParams.get('imageDescription');
     this.imageDate = this.navParams.get('imageDate');
     this.image = this.navParams.get('image');
+    this.nbLikes$ = this.likesService.getNumberOfPostLikes(this.image.id); // Obtenir l'observable pour nbLikes
 
   }
 
@@ -36,6 +42,7 @@ export class FullscreenImageModalComponent implements OnInit {
 
   async processLike(postId: string){
     let myUser: string = this.auth.getCurrentUser();
-    this.likesService.processLike(postId,myUser)
+    await this.likesService.processLike(postId,myUser)
+
   }
 }

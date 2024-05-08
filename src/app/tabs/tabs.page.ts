@@ -8,15 +8,20 @@ import { Platform } from '@ionic/angular';
 })
 export class TabsPage {
 
-  heartEmptyIcon = "heart-empty"
-  contactIcon = "contact"
-  isAndroid = false
+  heartEmptyIcon = "heart-outline"
+  contactIcon = "person-circle-outline"
+  isIos = false
+
   constructor(private platform: Platform) {
-    this.isAndroid = this.platform.is('android');
-    console.log("Android: "+this.isAndroid)
-    if(this.isAndroid){
-      this.heartEmptyIcon = "md-heart-empty"
-      this.contactIcon = "md-contact"
+    console.log("platforms : "+this.platform.platforms())
+    if ( this.platform.is('ipad') || this.platform.is("iphone") || this.platform.is("ios") ) {
+
+      this.isIos = true
+    }
+    console.log("Ios: "+this.isIos)
+    if(this.isIos){
+      this.heartEmptyIcon = "heart-outline"
+      this.contactIcon = "person-circle-outline"
     }
   }
 }

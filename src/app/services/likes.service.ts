@@ -1,7 +1,7 @@
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection, where, query, onSnapshot, QuerySnapshot } from 'firebase/firestore';
 import { Injectable, Pipe } from '@angular/core';
-import { map, switchMap, tap} from 'rxjs/operators';
+import { first, map, switchMap, tap} from 'rxjs/operators';
 import { Like } from '../interfaces/likes.interface';
 import { Observable, combineLatest, of } from 'rxjs';
 import { MessageService } from './message.service';
@@ -32,22 +32,33 @@ export class LikesService {
   }
 
   getNumberOfPostLikes(postId: string): Observable<number> {
+    return this.firestore.collection<Like>('likes/', ref => ref.where('postId', '==', postId))
+      .valueChanges().pipe(
+        map(likes => likes.length)
+      );
+  }
+
+  /*getNumberOfPostLikes(postId: string): Observable<number> {
     // Vérifie si le nombre de likes pour ce post est déjà en cache
+    console.log("recherche count like du post : "+postId)
     if (this.likesCountCache[postId] !== undefined) {
       // Retourne le nombre de likes depuis le cache
+      console.log("utilisation du cache : "+this.likesCountCache[postId])
       return of(this.likesCountCache[postId]);
     } else {
       // Si le nombre de likes n'est pas en cache, effectue la recherche dans Firestore
       return this.firestore.collection<Like>('likes/', ref => ref.where('postId', '==', postId))
         .valueChanges().pipe(
+          first(),
           map(likes => likes.length), // Mappe les likes en nombre de likes
           tap(likesCount => {
             // Met à jour le cache avec le nombre de likes récupéré
             this.likesCountCache[postId] = likesCount;
+            console.log("initialisation cache : "+this.likesCountCache[postId])
           })
         );
     }
-  }
+  }*/
 
   getNumberOfUserLikes(email): Observable<number> {
     console.log("getNumberOfUserLikes email :" + email)
@@ -65,7 +76,7 @@ export class LikesService {
 
     const dataRef = this.firestore.collection('likes/').ref
 
-    const querySnapshot = await dataRef
+    await dataRef
       .where("postId", "==", postId)
       .where("email", "==", email)
       .get()
@@ -78,16 +89,21 @@ export class LikesService {
               postId: postId,
               email: email
             })
-            this.message.okToast("Ok on crée le like", 2000);
+            console.log("Ajout like Ok : "+postId+" email: "+email)
+            return
+            //this.message.okToast("Ok on crée le like", 2000);
 
           }else{
             querySnapshot.forEach( object =>
               {
                 console.log("unlike : "+postId+" email: "+email)
                 object.ref.delete()
-                this.message.erreurToast("Like existe déjà", 2000);
+                console.log("suppression like Ok : "+postId+" email: "+email)
+                //this.message.erreurToast("Like existe déjà", 2000);
               }
             )
+
+            return
           }
         }
       )

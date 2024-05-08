@@ -57,6 +57,25 @@ getPosts(email): Observable<Post[]>{
   )
 }
 
+getPostById(id): Observable<Post>{
+  return this.firestore.collection<PostWithoutId>('Images').doc(id)
+  .snapshotChanges().pipe(
+    switchMap(action => {
+      const data = action.payload.data() as PostWithoutId;
+      const id = action.payload.id;
+      const nbLikes$ = this.likesService.getNumberOfPostLikes(id); // Obtenir l'observable pour nbLikes
+      return this.getUrl(data.storageid).pipe(
+        map(url => ({
+          ...data,
+          id,
+          nbLikes: nbLikes$, // Utiliser l'observable pour nbLikes
+          url: url
+        }))
+      );
+    })
+  );
+}
+
 getNumberOfPosts(email): Observable<number> {
 
   return this.firestore.collection<Post>('Images/',  ref => ref.where('email', '==', email))

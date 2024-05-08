@@ -1,7 +1,7 @@
 import { DeleteImageModalComponent } from './../delete-image-modal/delete-image-modal.component';
 import { AvatarsService } from './../services/avatars.service';
-import { Observable, Subscription } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription, firstValueFrom } from 'rxjs';
+import { Component, OnInit, isDevMode } from '@angular/core';
 import { UserService} from './../services/user.service';
 import { User } from '../interfaces/users.interface';
 import { PostService} from './../services/post.service';
@@ -10,6 +10,7 @@ import { Post } from '../interfaces/posts.interface';
 import { AuthService } from './../services/auth.service';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { AvatarpopComponent } from "../avatarpop/avatarpop.component";
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -25,8 +26,14 @@ export class ProfilePage implements OnInit {
   numberOfLikes$: Observable<number>;
   profileSegment: string = 'usrgrid';
   buttonDisabled: boolean = true;
+  userDescription: string;
+  userPseudo: string;
+  userNom: string;
+  userPrenom: string;
+  userEmail: string;
 
   firestoreSubscription: Subscription | undefined;
+  userForm: FormGroup<{}>;
 
   constructor(
     private userService: UserService,
@@ -35,19 +42,28 @@ export class ProfilePage implements OnInit {
     private likesService: LikesService,
     private popoverController: PopoverController,
     private modalController: ModalController,
-    private avatarsService: AvatarsService
+    private avatarsService: AvatarsService,
   ) { }
 
   ngOnInit() {
     this.currentUser =this.auth.getCurrentUser();
     this.user$ = this.userService.getUserByMail(this.currentUser)
-
     this.avatarUrl$ = this.avatarsService.getAvatarUrl(this.currentUser)
-
     this.numberOfPosts$ = this.postService.getNumberOfPosts(this.currentUser)
     this.numberOfLikes$ = this.likesService.getNumberOfUserLikes(this.currentUser)
     console.log(this.currentUser)
     this.getEmailPosts(this.currentUser);
+    this.initUser()
+
+  }
+  initUser() {
+    this.user$.subscribe(users => {
+      this.userDescription = users[0].description
+      this.userPseudo =users[0].pseudo
+      this.userNom = users[0].nom
+      this.userPrenom = users[0].prenom
+      this.userEmail = users[0].email
+    });
   }
 
   getEmailPosts(email: string){
@@ -87,8 +103,28 @@ export class ProfilePage implements OnInit {
 
   }
 
-  validate(){
-    //enregistrer l'objet dans la base ( user service update avec le user actuel )
+  async validate(){
+
+    console.log("recuperation de l'id utilisateur")
+    const userObj: User= {
+      description: this.userDescription,
+      pseudo: this.userPseudo,
+      email: this.userEmail,
+      nom: this.userNom,
+      prenom: this.userPrenom
+    }
+
+    console.log("userEmail : "+userObj.email)
+
+    if(userObj){
+      console.log("update de l'utilisateur")
+      await this.userService.updateUser(userObj)
+    }
+
+    console.log("rechargement des champs")
+    this.user$ = this.userService.getUserByMail(this.currentUser);
+    this.buttonDisabled = true;
+
   }
 
   cancel(){

@@ -49,20 +49,20 @@
   </div>
   <div *ngSwitchCase="'profil'">
     <ion-item>
-      <ion-input label="Pseudo" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.pseudo"></ion-input>
+      <ion-input [(ngModel)]="userPseudo" (ionInput)="enableButton()" label="Pseudo" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.pseudo"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Nom" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.nom"></ion-input>
+      <ion-input [(ngModel)]="userNom" (ionInput)="enableButton()" label="Nom" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.nom"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Prenom" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.prenom"></ion-input>
+      <ion-input [(ngModel)]="userPrenom" (ionInput)="enableButton()" label="Prenom" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.prenom"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-textarea name="descr" (ionChange)="enableButton()" label="Description" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.description"></ion-textarea>
+      <ion-textarea [(ngModel)]="userDescription" name="descr" (ionInput)="enableButton()" label="Description" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.description"></ion-textarea>
     </ion-item>
     <ion-item>
-      <ion-input label="Email" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.email"></ion-input>
-    </ion-item>
+      <ion-input [(ngModel)]="userEmail" (ionInput)="enableButton()" readonly="true" type="email" label="Email" labelPlacement="stacked" [value]="(user$ | async)?.[0]?.email"></ion-input>
+      </ion-item>
     <div class="flex">
       <ion-button [disabled]="buttonDisabled" color="success" (click)="validate()">Valider</ion-button>
       <ion-button [disabled]="buttonDisabled" color="danger" (click)="cancel()">Annuler</ion-button>
