@@ -1,12 +1,9 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -14,6 +11,9 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { FormsModule } from '@angular/forms';
+import { IonicEmojiKeyboardModule } from 'ionic-emoji-keyboard'
+import { LazyLoadImageModule } from 'ng-lazyload-image'
+import { QuillModule} from 'ngx-quill'
 
 export const firebaseConfig = {
     apiKey: "AIzaSyAGXu3ywY7UaUrzuwVsgEqMPzDBFnuc-mE",
@@ -25,9 +25,10 @@ export const firebaseConfig = {
     measurementId: "G-2Y5G69TZXT"
   };
 
+
+
 @NgModule({
-  declarations: [	AppComponent
-   ],
+  declarations: [	AppComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -38,6 +39,8 @@ export const firebaseConfig = {
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    IonicEmojiKeyboardModule,
+    LazyLoadImageModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

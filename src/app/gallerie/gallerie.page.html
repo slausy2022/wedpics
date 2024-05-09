@@ -1,6 +1,9 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <div class="dslogo" slot="start">
+      <ion-img src="../../assets/images/ewings-logo-black.png" ></ion-img>
+    </div>
+    <ion-buttons>
       <ion-button color="dark" (click)="selectImage('camera')">
         <ion-icon slot="icon-only" name="camera"></ion-icon>
       </ion-button>
@@ -8,35 +11,34 @@
         <ion-icon slot="icon-only" name="images"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-item>
-      <img src="../../assets/images/ewings-logo-black.png">
-    </ion-item>
     <ion-avatar slot="end" >
       <ion-img name="avatar" [src]="(avatarUrl$ | async)" alt="AVATAR" (click)="CreatePopover($event)"></ion-img>
     </ion-avatar>
   </ion-toolbar>
-<app-stories></app-stories>
 
-  <ion-segment color="medium" [(ngModel)]="postSegment">
-    <ion-segment-button value='grid'>
-      <ion-icon name="keypad"></ion-icon>
-    </ion-segment-button>
-    <ion-segment-button value='list'>
-      <ion-icon name="list"></ion-icon>
-    </ion-segment-button>
-  </ion-segment>
 
 </ion-header>
 
 <ion-content [fullscreen]="true" [ngSwitch]="postSegment">
+  <app-stories></app-stories>
+
+  <ion-segment color="dark" [(ngModel)]="postSegment">
+    <ion-segment-button value='list'>
+      <ion-icon name="list"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value='grid'>
+      <ion-icon name="keypad"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value='mugshots'>
+      <ion-icon name="man"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
   <hr>
-  <div *ngSwitchCase="'grid'" class="grid">
-    <div *ngFor="let image of images$ | async " (click)="openFullscreenImage(image, formatDate(image.date))" class="img_box" [ngStyle]="{ 'background-image': 'url(' + image.url + ')'}" ></div>
-  </div>
-  <div *ngSwitchCase="'list'">
+
+  <div *ngSwitchCase="'list'" >
     <ion-card *ngFor="let image of images$ | async ">
-      <ion-img [src]="image.url" (click)="openFullscreenImage(image, formatDate(image.date))"></ion-img>
-      <ion-textarea fill="outline" [label]="formatDate(image.date)" [readonly]="true">{{image.description}}</ion-textarea>
+      <img [lazyLoad]="image.url" (click)="openFullscreenImage(image, formatDate(image.date))">
+      <ion-textarea fill="outline" [label]="formatDate(image.date)" [readonly]="true" >{{formatDescr(image.pseudo,image.description)}}</ion-textarea>
       <ion-toolbar class="flex">
         <ion-buttons slot="start">
           <ion-button [color]="(image.nbLikes | async | LikesIconColorPipe)" (click)="processLike(image.id)">
@@ -45,5 +47,11 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-card>
+  </div>
+  <div *ngSwitchCase="'grid'" class="grid" >
+    <div *ngFor="let image of images$ | async " (click)="openFullscreenImage(image, formatDate(image.date))" class="img_box" [ngStyle]="{ 'background-image': 'url(' + image.url + ')'}" ></div>
+  </div>
+  <div *ngSwitchCase="'mugshots'">
+    <app-mugshots></app-mugshots>
   </div>
 </ion-content>

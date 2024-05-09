@@ -1,40 +1,19 @@
-.post-image-container {
+.image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  background-color: black;
+  background-color: #000000;
+  height: calc(40vh - 100px); /* Ajustez la hauteur comme nécessaire */
 }
 
-.image-wrapper {
-  position: relative;
+.button-bar {
   width: 100%;
-  height: 75%;
-  padding-top: 100%; /* Ratio hauteur/largeur pour garder le conteneur de l'image carré */
-  overflow: hidden; /* Pour masquer le dépassement de l'image */
-}
-
-.image-wrapper ion-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Pour s'assurer que l'image couvre tout le conteneur tout en préservant son aspect */
-}
-
-ion-img {
-  max-width: 100%;
-  max-height: 70%;
-}
-
-.text {
-  position: absolute;
-  bottom: 10px; /* Distance depuis le bas */
-  left: 1px; /* Distance depuis la gauche */
-  color: white;
-  font-size: 16px;
-  z-index: 1; /* Assure que le texte est au-dessus de l'image */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1px;
+  background-color: #000000; /* Changez la couleur de fond selon vos besoins */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Ajoutez une ombre sous la barre de boutons */
 }
 
 ion-textarea {
@@ -47,10 +26,13 @@ ion-textarea {
   //border-color: white;
 }
 
-.publish {
-  background-color: black;
-}
 
 .description {
   background-color: white;
+}
+.inner-scroll {
+  background-color: #000000;
+}
+ion-content {
+  --ion-background-color: black; // Changez la couleur de fond de l'ion-content
 }

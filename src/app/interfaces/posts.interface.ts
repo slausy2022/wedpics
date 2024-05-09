@@ -3,6 +3,7 @@ import { Observable, Subscription } from "rxjs";
 export interface Post {
   id: string;
   email: string;
+  pseudo: string;
   image: string;
   description: string;
   date: string;

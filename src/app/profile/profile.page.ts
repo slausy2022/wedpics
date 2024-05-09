@@ -56,6 +56,7 @@ export class ProfilePage implements OnInit {
     this.initUser()
 
   }
+
   initUser() {
     this.user$.subscribe(users => {
       this.userDescription = users[0].description

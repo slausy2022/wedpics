@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PublishPostModalComponent } from './publish-post-modal.component';
-import { EmojiPickerComponent } from '../emoji-picker/emoji-picker.component';
+import { MugshotsComponent } from './mugshots.component';
 
-describe('PublishPostModalComponent', () => {
-  let component: PublishPostModalComponent;
-  let fixture: ComponentFixture<PublishPostModalComponent>;
+describe('MugshotsComponent', () => {
+  let component: MugshotsComponent;
+  let fixture: ComponentFixture<MugshotsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PublishPostModalComponent ],
+      declarations: [ MugshotsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PublishPostModalComponent);
+    fixture = TestBed.createComponent(MugshotsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

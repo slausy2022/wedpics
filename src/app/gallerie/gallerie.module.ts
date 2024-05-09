@@ -11,6 +11,9 @@ import { GalleriePageRoutingModule } from './gallerie-routing.module';
 import { StoriesComponent } from '../stories/stories.component';
 import { DatePipe } from '@angular/common';
 import { LikesIconColorPipe, LikesIconPipe } from './gallerie.pipe';
+import { IonicEmojiKeyboardComponent, IonicEmojiKeyboardModule } from 'ionic-emoji-keyboard';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { MugshotsComponent  } from '../mugshots/mugshots.component'
 
 @NgModule({
   imports: [
@@ -18,14 +21,18 @@ import { LikesIconColorPipe, LikesIconPipe } from './gallerie.pipe';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    GalleriePageRoutingModule
+    GalleriePageRoutingModule,
+    IonicEmojiKeyboardModule,
+    LazyLoadImageModule
+
   ],
   declarations: [GalleriePage,
     StoriesComponent,
     FullscreenImageModalComponent,
     PublishPostModalComponent,
     LikesIconPipe,
+    MugshotsComponent,
     LikesIconColorPipe],
-  providers: [DatePipe],
+  providers: [DatePipe]
 })
 export class GalleriePageModule {}

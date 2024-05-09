@@ -45,6 +45,32 @@ export class UserService {
 
   }
 
+  async getUserPseudoByMail(email): Promise<string> {
+
+    let userPseudo: string = "anonyme"
+    const snapshot = await this.firestore.collection<User>('users').ref.where('email', '==', email).limit(1).get()
+    snapshot.forEach(user => {
+      userPseudo = user.data().pseudo
+    })
+
+    return userPseudo
+
+  }
+
+  async getAllUsersObj(): Promise<User[]> {
+
+    let myUser: User[] = []
+    const snapshot = await this.firestore.collection<User>('users').ref.get()
+    snapshot.forEach(user => {
+      myUser.push(user.data())
+    })
+
+    return myUser
+
+  }
+
+
+
   getUserByMail(email): Observable<User[]>{
     return this.firestore.collection<User>('users/', ref => ref.where('email', '==', email))
     .valueChanges().pipe(

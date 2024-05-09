@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { EmojiService } from './../services/emoji.service';
+import { Component, NgModule, OnInit } from '@angular/core';
+import { NavParams, ModalController, PickerController } from '@ionic/angular';
 import { ImagePublishService } from '../services/image-publish.service';
 import { Photo } from '@capacitor/camera';
+import { Emoji } from 'ionic-emoji-keyboard';
 
 @Component({
   selector: 'app-publish-post-modal',
@@ -14,15 +16,17 @@ export class PublishPostModalComponent  implements OnInit {
   imageDescription : string;
   imageDate: string;
   toPublished: boolean = true;
+  showEmojiKeyboard = false;
 
   constructor(private navParams: NavParams,
     private modalController: ModalController,
-    private publishService: ImagePublishService
+    private publishService: ImagePublishService,
   ) {}
 
   ngOnInit() {
     this.user = this.navParams.get('user');
     this.imageInfos = this.navParams.get('imageInfos');
+
   }
 
   closeModal() {
@@ -31,7 +35,7 @@ export class PublishPostModalComponent  implements OnInit {
 
   async publish(){
     this.toPublished = false
-    await this.publishService.publish(this.user,this.imageDescription,this.imageInfos)
+    this.publishService.publish(this.user,this.imageDescription,this.imageInfos)
     .then(toPublished => {
       this.toPublished = toPublished
       this.closeModal()
@@ -39,5 +43,18 @@ export class PublishPostModalComponent  implements OnInit {
     .catch(toPublished => {this.toPublished = true});
 
   }
+  onEmojiSelected(event: Emoji)  {
+    this.imageDescription += event.emoji;
+  };
+
+  onShowEmojiKeyboard()  {
+    if(this.showEmojiKeyboard){
+      this.showEmojiKeyboard = false;
+    }else{
+      this.showEmojiKeyboard = true;
+    }
+
+  };
+
 }
 

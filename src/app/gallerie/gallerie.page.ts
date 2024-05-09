@@ -41,7 +41,7 @@ export class GalleriePage implements OnInit {
   user: any;
   uploadProgress: number;
 
-  postSegment: string =  'grid';
+  postSegment: string =  'list';
 
   constructor(
     public firestore: AngularFirestore,
@@ -152,4 +152,9 @@ export class GalleriePage implements OnInit {
     });
     return await pop.present();
   }
+
+  formatDescr(pseudo: string, description: string){
+    return pseudo+" :"+description
+  }
+
 }
