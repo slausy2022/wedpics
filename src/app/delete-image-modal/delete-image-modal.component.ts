@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
-import { AvatarsService } from '../services/avatars.service';
-import { Photo } from '@capacitor/camera';
 import { Post } from '../interfaces/posts.interface';
 import { PostService } from '../services/post.service';
+import { Emoji } from 'ionic-emoji-keyboard';
 
 @Component({
   selector: 'app-delete-image-modal',
@@ -13,8 +12,8 @@ import { PostService } from '../services/post.service';
 export class DeleteImageModalComponent  implements OnInit {
 
   post: Post;
-  imageInfos: Photo;
   toPublished: boolean = true;
+  showEmojiKeyboard = true;
 
   constructor(
     private navParams: NavParams,
@@ -41,6 +40,18 @@ export class DeleteImageModalComponent  implements OnInit {
     await this.postsService.updatePostDescription(post)
     this.closeModal()
   }
+  onEmojiSelected(event: Emoji)  {
+    this.post.description += event.emoji;
+  };
+
+  onShowEmojiKeyboard()  {
+    if(this.showEmojiKeyboard){
+      this.showEmojiKeyboard = false;
+    }else{
+      this.showEmojiKeyboard = true;
+    }
+
+  };
 
 }
 

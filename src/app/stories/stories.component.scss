@@ -8,6 +8,8 @@
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
+  overflow-x: auto; /* Activer le scroll horizontal */
+  white-space: nowrap; /* Éviter le retour à la ligne des éléments */
 }
 
 .stories .img-box{

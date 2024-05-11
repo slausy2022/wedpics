@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Suppression d'Image</ion-title>
+    <ion-title>Modification</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -12,15 +12,24 @@
 <ion-content>
 
   <div class="image-container">
-      <ion-img name="avatar" [src]="post.url" ></ion-img>
-  </div>
-  <div class="button-bar">
-    <ion-button shape="round" slot="end" color="light" (click)="update(post)">Supprimer
-      <ion-icon color="danger" size="large" name="close-circle" ></ion-icon>
-    </ion-button>
-    <ion-button shape="round" slot="end" color="light" (click)="delete(post)">Supprimer
-      <ion-icon color="danger" size="large" name="close-circle" ></ion-icon>
-    </ion-button>
+    <ion-img [src]="post.url" alt="Image"></ion-img>
   </div>
 
+  <div class="button-bar">
+    <ion-button slot="start"  color="Dark" (click)="update(post)">Modifier
+      <ion-icon size="large"  name="send" ></ion-icon>
+    </ion-button>
+    <ion-button slot="end"  color="Dark" (click)="delete(post)">Supprimer
+      <ion-icon size="large"  name="close-circle" ></ion-icon>
+    </ion-button>
+
+  </div>
+  <div class="scrollable-container">
+    <div>
+      <quill-editor  class="text" [(ngModel)]="post.description" ></quill-editor>
+    </div>
+  </div>
+  <div class="emojikeyboard">
+    <ionic-emoji-keyboard (emojiSelected)="onEmojiSelected($event)" [height]="'110px'" [hide]="showEmojiKeyboard" ></ionic-emoji-keyboard>
+  </div>
 </ion-content>

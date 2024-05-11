@@ -2,19 +2,68 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000000;
-  height: calc(100vh - 100px); /* Ajustez la hauteur comme nécessaire */
+  background-color: #ffffff;
+  height: calc(40vh - 100px); /* Ajustez la hauteur comme nécessaire */
 }
 
 .button-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px;
+  padding: 1px;
   background-color: #000000; /* Changez la couleur de fond selon vos besoins */
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Ajoutez une ombre sous la barre de boutons */
+}
+
+quill-editor {
+  //border-style: solid;
+  border-radius: 15px;
+  background-color: white !important;
+  color: black !important;
+  padding: 5px;
+
+  //border-color: white;
+}
+
+div.inner-scroll.scroll-y{
+  background-color: white;
+}
+
+ionic-emoji-keyboard{
+  --ion-background-color: "Light";
+  --ion-color: "warning";
+  color: 'light';
+
+}
+ionic-emoji-keyboard::part(ion-segment-button){
+  --ion-background-color: white;
+  --ion-color: "warning";
+  color: 'light';
+
+}
+.emojikeyboard{
+  --ion-background-color: rgb(3, 3, 3);
+}
+.emoji{
+  --ion-color: yellow;
+  color: yellow;
+  border-color: #000000;
+  --ion-border-color: black;
+
+}
+
+.description {
+  background-color: white;
+}
+.inner-scroll {
+  --ion-background-color: #ffffff;
+}
+ion-content {
+  --ion-background-color: rgb(255, 255, 255); // Changez la couleur de fond de l'ion-content
+}
+
+.scrollable-container {
+  //height: 150px; /* Définissez la hauteur que vous souhaitez */
+  overflow-y: auto; /* Activer le défilement vertical si nécessaire */
 }
