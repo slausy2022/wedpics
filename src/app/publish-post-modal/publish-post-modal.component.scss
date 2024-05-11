@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000000;
+  background-color: #ffffff;
   height: calc(40vh - 100px); /* Ajustez la hauteur comme nécessaire */
 }
 
@@ -16,7 +16,7 @@
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Ajoutez une ombre sous la barre de boutons */
 }
 
-ion-textarea {
+quill-editor {
   //border-style: solid;
   border-radius: 15px;
   background-color: white !important;
@@ -26,13 +26,44 @@ ion-textarea {
   //border-color: white;
 }
 
+div.inner-scroll.scroll-y{
+  background-color: white;
+}
+
+ionic-emoji-keyboard{
+  --ion-background-color: "Light";
+  --ion-color: "warning";
+  color: 'light';
+
+}
+ionic-emoji-keyboard::part(ion-segment-button){
+  --ion-background-color: white;
+  --ion-color: "warning";
+  color: 'light';
+
+}
+.emojikeyboard{
+  --ion-background-color: rgb(3, 3, 3);
+}
+.emoji{
+  --ion-color: yellow;
+  color: yellow;
+  border-color: #000000;
+  --ion-border-color: black;
+
+}
 
 .description {
   background-color: white;
 }
 .inner-scroll {
-  background-color: #000000;
+  --ion-background-color: #ffffff;
 }
 ion-content {
-  --ion-background-color: black; // Changez la couleur de fond de l'ion-content
+  --ion-background-color: rgb(255, 255, 255); // Changez la couleur de fond de l'ion-content
+}
+
+.scrollable-container {
+  height: 150px; /* Définissez la hauteur que vous souhaitez */
+  overflow-y: auto; /* Activer le défilement vertical si nécessaire */
 }

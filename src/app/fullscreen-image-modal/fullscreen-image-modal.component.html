@@ -10,24 +10,20 @@
 </ion-header>
 
 <ion-content>
-  <div class="fullscreen-image-container">
-    <div class="image-wrapper">
-      <ion-img [src]="image.url" alt="Image"></ion-img>
-
-      <div class="like">
-        <ion-toolbar class="flex">
-          <ion-buttons slot="start">
-            <ion-button [color]="(nbLikes$ | async | LikesIconColorPipe)" (click)="processLike(image.id)">
-              <ion-icon  [name]="(nbLikes$ | async | LikesIconPipe)"></ion-icon>{{image.nbLikes | async }}
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </div>
-
-      <div class="description">
-        <ion-textarea class="text" fill="outline" [label]="imageDate" [readonly]="true">{{imageDescription}}</ion-textarea>
-      </div>
-
-    </div>
+  <div class="image-container">
+    <ion-img [src]="image.url" alt="Image"></ion-img>
   </div>
+  <div class="flex-sp">
+    <ion-label>{{image.pseudo}}</ion-label>
+    <ion-label>{{formatDate(image.date)}}</ion-label>
+  </div>
+  <quill-view [content]="image.description"></quill-view>
+
+  <ion-toolbar class="flex">
+    <ion-buttons slot="start">
+      <ion-button [color]="(image.nbLikes | async | LikesIconColorPipe)" (click)="processLike(image.id)">
+        <ion-icon  [name]="(image.nbLikes | async | LikesIconPipe)"></ion-icon>{{image.nbLikes | async }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-content>

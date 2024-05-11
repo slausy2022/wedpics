@@ -127,5 +127,41 @@ export class UserService {
 
   }
 
+async addUser(email:string): Promise<void>{
+  const dataRef = this.firestore.collection('users/').ref
+
+  await dataRef
+      .where("email", "==", email)
+      .get()
+      .then(querySnapshot =>
+        {
+          if(querySnapshot.empty){
+
+            console.log("utilisateur: "+email)
+            this.firestore.collection('users').add({
+
+              pseudo: "Anonymous",
+              email: email,
+              nom: "",
+              prenom: "",
+              description: "",
+            })
+            console.log("Ajout Utilisateur Ok : "+email)
+
+            return
+            //this.message.okToast("Ok on crée le like", 2000);
+
+          }else{
+
+            this.messageService.erreurToast("Like existe déjà", 2000);
+
+            return
+          }
+        }
+      )
+  }
+
+
+
 
 }

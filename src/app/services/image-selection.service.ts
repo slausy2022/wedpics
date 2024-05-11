@@ -11,9 +11,10 @@ export class ImageSelectionService {
 
   async selectImageFromGallery(): Promise<Photo | null> {
     const options = {
+      height: 1440,
       source: CameraSource.Photos,
       resultType: CameraResultType.DataUrl,
-      quality: 100
+      quality: 80
 
     };
 
@@ -30,10 +31,13 @@ export class ImageSelectionService {
 
   async takePhoto(): Promise<Photo | null> {
     const options = {
+      height: 1440,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera,
       allowEditing: true,
-      quality: 100
+      saveToGallery: true,
+      quality: 80
+
     };
 
     try {

@@ -11,9 +11,12 @@
 
 ion-input {
   font-size: smaller;
-  padding: 10px;
+  --padding-start: 10px;
   background-color: #e1d7d7;
   border-style:solid;
+}
+.label-text {
+  padding-left: 10px;
 }
 
 .login-input {

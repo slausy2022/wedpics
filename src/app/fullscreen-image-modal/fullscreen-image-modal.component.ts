@@ -4,6 +4,8 @@ import { AuthService } from './../services/auth.service';
 import { LikesService } from './../services/likes.service';
 import { Post } from '../interfaces/posts.interface';
 import { Observable } from 'rxjs';
+import { GalleriePage } from '../gallerie/gallerie.page';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -23,7 +25,8 @@ export class FullscreenImageModalComponent implements OnInit{
   constructor(private navParams: NavParams,
     private modalController: ModalController,
     private auth: AuthService,
-    private likesService: LikesService
+    private likesService: LikesService,
+    private datePipe: DatePipe,
   ) {}
 
 
@@ -45,4 +48,13 @@ export class FullscreenImageModalComponent implements OnInit{
     await this.likesService.processLike(postId,myUser)
 
   }
+
+  formatDate(date: string): string {
+
+    if (!date) return '';
+
+    const formattedDate = this.datePipe.transform(date, 'dd/MM/yy HH:mm');
+    return formattedDate || ''; // Retourne une chaîne vide si la date est invalide
+  }
+
 }

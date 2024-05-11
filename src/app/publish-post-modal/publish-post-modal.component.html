@@ -16,33 +16,17 @@
   </div>
 
   <div class="button-bar">
-    <ion-button slot="end" color="white" (click)="publish()" [disabled]="!toPublished">Publier
+    <ion-button slot="end" color="Dark" (click)="publish()" [disabled]="!toPublished">Publier
       <ion-icon size="large" name="send" ></ion-icon>
     </ion-button>
-    <ion-button (click)="onShowEmojiKeyboard()">
-      <ng-container *ngIf="showEmojiKeyboard else keyboard">
-          <ion-icon name="happy-outline" slot="icon-only"></ion-icon>
-      </ng-container>
-      <ng-template #keyboard>
-          <ion-icon name="happy-sharp" color="Warning" slot="icon-only"></ion-icon>
-      </ng-template>
-  </ion-button>
+
   </div>
-
-  <!--<div class="description"> -->
-    <!-- <app-emoji-picker></app-emoji-picker> -->
-    <ion-buttons>
-      <ion-button (click)="onShowEmojiKeyboard()">
-          <ng-container *ngIf="showEmojiKeyboard else keyboard">
-              <ion-icon name="happy-outline" color="Warning" slot="icon-only"></ion-icon>
-          </ng-container>
-          <ng-template #keyboard>
-              <ion-icon name="happy-sharp" color="Warning" slot="icon-only"></ion-icon>
-          </ng-template>
-      </ion-button>
-  </ion-buttons>
-    <ion-textarea label="Description : " class="text" color="white" fill="outline" [readonly]="false" [(ngModel)]="imageDescription"></ion-textarea>
-    <ionic-emoji-keyboard (emojiSelected)="onEmojiSelected($event)" [color]="'Warning'" [height]="'183px'" [hide]="showEmojiKeyboard" ></ionic-emoji-keyboard>
-    <!--</div> -->
-
+  <div class="scrollable-container">
+    <div style="height: 150px;">
+      <quill-editor  class="text" [(ngModel)]="imageDescription" ></quill-editor>
+    </div>
+  </div>
+  <div class="emojikeyboard">
+    <ionic-emoji-keyboard (emojiSelected)="onEmojiSelected($event)" [height]="'183px'" [hide]="showEmojiKeyboard" ></ionic-emoji-keyboard>
+  </div>
 </ion-content>

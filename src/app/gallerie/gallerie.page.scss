@@ -24,6 +24,14 @@ hr {
   display: flex;
   justify-content: center;
 }
+.flex-sp {
+  margin-top: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+  justify-content: space-between ;
+  color: black
+}
 
 ion-textarea{
   color:black;

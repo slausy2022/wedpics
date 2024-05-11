@@ -10,17 +10,14 @@ const routes: Routes = [
     component: TabsPage,
     canActivate: [AuthGuard],
     children: [
-      /*{
-        path: 'home',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
-      },*/
+
       {
         path: 'gallerie',
         loadChildren: () => import('../gallerie/gallerie.module').then(m => m.GalleriePageModule)
       },
       {
-        path: 'usergallerie',
-        loadChildren: () => import('../usergallerie/usergallerie.module').then(m => m.UserGalleriePageModule)
+        path: 'organisation',
+        loadChildren: () => import('../organisation/organisation.module').then(m => m.OrganisationPageModule)
       },
       {
         path: 'profile',

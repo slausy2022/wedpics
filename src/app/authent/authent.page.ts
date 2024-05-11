@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../services/auth.service';
 import { MessageService } from './../services/message.service';
 
-
 @Component({
   selector: 'app-authent',
   templateUrl: './authent.page.html',

@@ -36,6 +36,12 @@ export class DeleteImageModalComponent  implements OnInit {
     this.closeModal()
   }
 
+  async update(post: Post){
+    console.log("Mise à jour");
+    await this.postsService.updatePostDescription(post)
+    this.closeModal()
+  }
+
 }
 
 

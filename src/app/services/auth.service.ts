@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router'
 import { MessageService } from './message.service';
+import { UserService } from './user.service';
 
 
 @Injectable({
@@ -15,7 +16,11 @@ export class AuthService {
   mail: any;
   method: any;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, private message: MessageService){
+  constructor(
+    private afAuth: AngularFireAuth,
+    private router: Router,
+    private message: MessageService,
+    private userService: UserService ){
 
     this.afAuth.authState.subscribe(auth => {
       if (!auth) {
@@ -39,14 +44,17 @@ export class AuthService {
 
     return ret;
 
-
   }
 
   async signUp(email:string, password:string) : Promise<boolean | false>{
 
     let ret: boolean = true;
     await this.afAuth.createUserWithEmailAndPassword(email,password)
-    .then(auth => { this.router.navigate(['tabs']);  ret = true} )
+    .then( auth => {
+      this.userService.addUser(email).then( auth => {
+        this.login(email,password).then( auth => {return true} );
+      })
+    })
     .catch(err => { console.error('Login error:', err.message); this.message.erreurToast(err.code,2000); ret = false  })
 
     return ret;
@@ -59,13 +67,12 @@ export class AuthService {
       this.router.navigate(['login']);
     } catch (error) {
       console.error('Logout error:', error);
-      this.router.navigate(['/login']);
+      this.router.navigate(['login']);
       // Gérer les erreurs de déconnexion ici
     }
   }
 
   async ResetPassword(email: string){
-
 
     await this.afAuth.sendPasswordResetEmail(email)
       .then(send => {
@@ -85,6 +92,6 @@ export class AuthService {
   }
 
   codeToMessage(code: string){
-
+    /* fonction jamais ecrite */
   }
 }

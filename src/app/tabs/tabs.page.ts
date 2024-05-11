@@ -8,7 +8,7 @@ import { Platform } from '@ionic/angular';
 })
 export class TabsPage {
 
-  heartEmptyIcon = "heart-outline"
+  heartEmptyIcon = "trail-sign-outline"
   contactIcon = "person-circle-outline"
   isIos = false
 
@@ -20,7 +20,7 @@ export class TabsPage {
     }
     console.log("Ios: "+this.isIos)
     if(this.isIos){
-      this.heartEmptyIcon = "heart-outline"
+      this.heartEmptyIcon = "trail-sign-outline"
       this.contactIcon = "person-circle-outline"
     }
   }

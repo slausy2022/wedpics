@@ -14,6 +14,7 @@ import { LikesIconColorPipe, LikesIconPipe } from './gallerie.pipe';
 import { IonicEmojiKeyboardComponent, IonicEmojiKeyboardModule } from 'ionic-emoji-keyboard';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MugshotsComponent  } from '../mugshots/mugshots.component'
+import { QuillEditorComponent, QuillModule } from 'ngx-quill';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { MugshotsComponent  } from '../mugshots/mugshots.component'
     ExploreContainerComponentModule,
     GalleriePageRoutingModule,
     IonicEmojiKeyboardModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    QuillModule
 
   ],
   declarations: [GalleriePage,

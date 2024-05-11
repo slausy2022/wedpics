@@ -13,7 +13,7 @@ import { ServiceWorkerModule } from '@angular/service-worker'
 import { FormsModule } from '@angular/forms';
 import { IonicEmojiKeyboardModule } from 'ionic-emoji-keyboard'
 import { LazyLoadImageModule } from 'ng-lazyload-image'
-import { QuillModule} from 'ngx-quill'
+import { QuillModule, QuillModules} from 'ngx-quill'
 
 export const firebaseConfig = {
     apiKey: "AIzaSyAGXu3ywY7UaUrzuwVsgEqMPzDBFnuc-mE",
@@ -25,7 +25,19 @@ export const firebaseConfig = {
     measurementId: "G-2Y5G69TZXT"
   };
 
+const modules: QuillModules = {
 
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+
+      [{ list:  'ordered'}, { list: 'bullet'}],
+
+      [{ color: []}, { background: [] }],
+      [{ align: []}],
+
+      ['link', 'image', 'video'],
+    ],
+};
 
 @NgModule({
   declarations: [	AppComponent],
@@ -41,6 +53,7 @@ export const firebaseConfig = {
     AngularFireStorageModule,
     IonicEmojiKeyboardModule,
     LazyLoadImageModule,
+    QuillModule.forRoot({modules}),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

@@ -147,4 +147,23 @@ export class PostService {
     return this.firestore.collection<Mugshots>('Mugshots').valueChanges()
 
   }
+
+  async updatePostDescription(post: Post): Promise<void> {
+
+    const postId = post.id
+    const  valuesToUpdate = {
+      description: post.description,
+    }
+    try{
+      console.log("userid : "+postId)
+      console.log("values : "+valuesToUpdate.description)
+      this.firestore.collection('Images').doc(postId).update(valuesToUpdate)
+      .then( value => {this.message.okToast("Post mis à jour", 2000); return })
+
+    }catch (error) {
+      console.error("Erreur impossible de mettre le post à jour :", error);
+      this.message.erreurToast("Erreur impossible de mettre le post à jour :"+ error, 2000).then(value => {return})
+
+    }
+  }
 }

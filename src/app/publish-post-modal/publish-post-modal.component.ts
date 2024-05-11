@@ -13,10 +13,10 @@ import { Emoji } from 'ionic-emoji-keyboard';
 export class PublishPostModalComponent  implements OnInit {
   user: string;
   imageInfos: Photo;
-  imageDescription : string;
+  imageDescription : string = "";
   imageDate: string;
   toPublished: boolean = true;
-  showEmojiKeyboard = false;
+  showEmojiKeyboard = true;
 
   constructor(private navParams: NavParams,
     private modalController: ModalController,

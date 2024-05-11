@@ -38,7 +38,13 @@
   <div *ngSwitchCase="'list'" >
     <ion-card *ngFor="let image of images$ | async ">
       <img [lazyLoad]="image.url" (click)="openFullscreenImage(image, formatDate(image.date))">
-      <ion-textarea fill="outline" [label]="formatDate(image.date)" [readonly]="true" >{{formatDescr(image.pseudo,image.description)}}</ion-textarea>
+      <!--<ion-textarea fill="outline" [label]="formatDate(image.date)" [readonly]="true" >{{formatDescr(image.pseudo,image.description)}}</ion-textarea>-->
+      <div class="flex-sp">
+        <ion-label>{{image.pseudo}}</ion-label>
+        <ion-label>{{formatDate(image.date)}}</ion-label>
+      </div>
+      <quill-view [content]="image.description"></quill-view>
+
       <ion-toolbar class="flex">
         <ion-buttons slot="start">
           <ion-button [color]="(image.nbLikes | async | LikesIconColorPipe)" (click)="processLike(image.id)">
